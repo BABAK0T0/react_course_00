@@ -1,25 +1,26 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {tableRows, tableColumns} from './Data';
 import {AutoSizer, Column, Table} from 'react-virtualized';
 import 'react-virtualized/styles.css';
 import {Card} from './Card';
 import styled from 'styled-components';
-import { medGrey } from './GlobalStyle';
+import { medGrey, brandColor } from './GlobalStyle';
+import {ThemeContext} from './Dashboard';
 
 const ROW_HEIGHT = 48;
 
 const TableCell = styled.div`
     display: flex;
-    color: black;
+    color: ${({header, dark}) => dark ? (header ? brandColor : 'white') : 'black'};
     ${({ align }) => align === 'right' && `flex-direction: row-reverse`}
 `
 
 export function ReactVirtualizedTable(props) {
-    const {columns} = props;
+    const {columns, dark} = props;
 
     const cellRenderer = ({cellData, columnIndex}) => {
         return (
-            <TableCell align={columns[columnIndex].numeric ? 'right' : 'left'}>
+            <TableCell dark={dark} align={columns[columnIndex].numeric ? 'right' : 'left'}>
                 {cellData}
             </TableCell>
         );
@@ -27,7 +28,7 @@ export function ReactVirtualizedTable(props) {
 
     const headerRenderer = ({label, columnIndex}) => {
         return (
-            <TableCell header align={columns[columnIndex].numeric ? 'right' : 'left'}>
+            <TableCell dark={dark} header align={columns[columnIndex].numeric ? 'right' : 'left'}>
                 <span>{label}</span>
             </TableCell>
         );
@@ -44,7 +45,7 @@ export function ReactVirtualizedTable(props) {
                     rowCount={tableRows.length}
                     rowGetter={({index}) => tableRows[index]}
                     rowStyle={{
-                        borderBottom: `1px solid ${medGrey}`,
+                        borderBottom: `1px solid ${dark ? 'grey' : medGrey}`,
                         boxSizing: `border-box`
                     }}
                     gridStyle={{outline: 0}}
@@ -72,9 +73,11 @@ export function ReactVirtualizedTable(props) {
 }
 
 export function VirtualizedTable() {
+    const [theme, setTheme] = useContext(ThemeContext);
+    const dark = theme === 'dark';
     return (
-        <Card height={400}>
-            <ReactVirtualizedTable columns={tableColumns} />
+        <Card height={400} dark={dark}>
+            <ReactVirtualizedTable columns={tableColumns} dark={dark}/>
         </Card>
     );
 }
