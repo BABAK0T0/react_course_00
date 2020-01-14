@@ -3,6 +3,7 @@ import Brand from './Brand';
 import {Container} from './Container';
 import {GlobalStyle} from './GlobalStyle';
 import {Card} from './Card';
+import {Chart} from './Chart';
 
 export default function Dashboard() {
     return (
@@ -10,7 +11,7 @@ export default function Dashboard() {
             <GlobalStyle />
             <Container>
                 <Brand />
-                <Card height={400}>Chart goes here</Card>
+                <Chart />
                 <Card height={400}>Table goes here</Card>
             </Container>
         </React.Fragment>
