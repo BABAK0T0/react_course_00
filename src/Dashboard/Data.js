@@ -55,6 +55,32 @@ export const tableRows = months.map((month, idx) => ({
     services: format(chartData[1].data[idx]),
     tablets: format(chartData[2].data[idx]),
     laptops: format(chartData[3].data[idx])
-}))
+}));
 
-console.log(tableRows);
+export const tableColumns = [
+    {
+        width: 240,
+        label: 'Month',
+        dataKey: 'month'
+    },
+    {
+        width: 240,
+        label: 'Phones',
+        dataKey: 'phones'
+    },
+    {
+        width: 240,
+        label: 'Services',
+        dataKey: 'services'
+    },
+    {
+        width: 240,
+        label: 'Tablets',
+        dataKey: 'tablets'
+    },
+    {
+        width: 240,
+        label: 'Laptops',
+        dataKey: 'laptops'
+    },
+];

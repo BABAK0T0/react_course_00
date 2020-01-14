@@ -2,8 +2,9 @@ import React from 'react';
 import Brand from './Brand';
 import {Container} from './Container';
 import {GlobalStyle} from './GlobalStyle';
-import {Card} from './Card';
+// import {Card} from './Card';
 import {Chart} from './Chart';
+import {VirtualizedTable} from './Tables';
 
 export default function Dashboard() {
     return (
@@ -12,7 +13,7 @@ export default function Dashboard() {
             <Container>
                 <Brand />
                 <Chart />
-                <Card height={400}>Table goes here</Card>
+                <VirtualizedTable/>
             </Container>
         </React.Fragment>
     );
