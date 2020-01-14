@@ -1,32 +1,56 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Card} from './Card';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import {chartData} from './Data';
+import { ThemeContext } from './Dashboard';
+import {darkerGrey, lightGrey} from './GlobalStyle';
 
-const options = {
+const getOptions = (dark) => ({
     chart: {
         height: '360px',
         type: 'column',
+        backgroundColor: dark ? darkerGrey : 'white',
         style: {
             fontFamily: `'Blinker', sans-serif`,
         }
     },
     title: {
-        text: 'Revenue by Product'
+        text: 'Revenue by Product',
+        style: {
+            color: dark ? lightGrey : 'black',
+        }
     },
     xAxis: {
+        labels: {
+            style: {
+                color: dark ? lightGrey : 'black', 
+            },
+        },
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec' ]
     },
     yAxis: {
+        // gridLineColor: dark ? 'grey' : lightGrey,
+        labels: {
+            style: {
+                color: dark ? lightGrey : 'black', 
+            },
+        },
         min: 0,
         title: {
-            text: 'Billions of Dollars'
+            text: 'Billions of Dollars',
+            style: {
+                color: dark ? lightGrey : 'black', 
+            },
         }
     },
     tooltip: {
         pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-        shared: true
+        shared: true,
+        backgroundColor: dark ? darkerGrey : 'white',
+        style: {
+            color: dark ? lightGrey : 'black', 
+        }
     },
     plotOptions: {
         series: {
@@ -36,14 +60,21 @@ const options = {
             stacking: 'normal'
         }
     },
+    legend: {
+        itemStyle: {
+            color: dark ? lightGrey : 'black', 
+        }
+    },
     series: chartData
-}
+})
 
 export function Chart () {
-    return <Card height={400}>
+    const [theme, setTheme] = useContext(ThemeContext);
+    const dark = theme === 'dark';
+    return <Card height={400} dark={dark}>
         <HighchartsReact
             highcharts={Highcharts}
-            options={options}
+            options={getOptions(dark)}
         />
     </Card>
 }

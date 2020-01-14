@@ -2,6 +2,7 @@ import {createGlobalStyle} from 'styled-components';
 
 export const black = "#252020";
 export const darkGrey = "#515263";
+export const darkerGrey = "#353131";
 export const medGrey = "#dad9d9";
 export const lightGrey = "#f7f7f7";
 export const brandColor = "#1DDA65"
